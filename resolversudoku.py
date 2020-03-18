@@ -9,9 +9,10 @@ from numpy import loadtxt
 from sudoku import Sudoku
 from solucionarsudoku import SolucionarSudoku
 
-jogo = loadtxt(sys.argv[1], dtype=int, delimiter=",")
+jg = sys.argv[1]
+jogo = loadtxt(jg, dtype=int, delimiter=",")
 sudoku = Sudoku()
 sudoku.sudoku = jogo
-solucionarsudoku = SolucionarSudoku(sudoku, 32, 500)
+solucionarsudoku = SolucionarSudoku(sudoku, 8, 500)
 solucionarsudoku.inicializar(epidemia=50)
 solucionarsudoku.solucionar()
