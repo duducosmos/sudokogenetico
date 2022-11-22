@@ -82,18 +82,20 @@ class SolucionarSudoku:
             y = x[k, :].copy()
             data = list(zip(y, linhas, colunas))
 
-            tmp = 10 * sum([self.sudoku.verificar(num, i, j)
+            tmp = 0
+
+            tmp +=  sum([self.sudoku.verificar(num, i, j)
                             for num, i, j in data
                             ])
 
-            tmp += 100000 * self.sudoku.perda * self.sudoku.total_ilegais()
-
             profundidade, ilegais, resposta = self.sudoku.tentar_preencher()
+            tot_zeros = sum(resposta.flat == 0)
+
             if profundidade is not None:
-                objetivo = (profundidade + ilegais) / \
-                    (1e-3 * profundidade + 1.0)
-                objetivo += (profundidade + ilegais ** 3) / (ilegais + 1.0)
-                tmp += self.sudoku.perda * int(1000 * objetivo)
+                objetivo =   1.0 / (ilegais + profundidade + tot_zeros + 1)
+                tmp *=   objetivo
+            else:
+                tmp += self.sudoku.perda * 1e9
 
             peso.append(tmp)
 

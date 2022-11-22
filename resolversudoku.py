@@ -13,6 +13,6 @@ jg = sys.argv[1]
 jogo = loadtxt(jg, dtype=int, delimiter=",")
 sudoku = Sudoku()
 sudoku.sudoku = jogo
-solucionarsudoku = SolucionarSudoku(sudoku, 8, 500)
-solucionarsudoku.inicializar(epidemia=50)
+solucionarsudoku = SolucionarSudoku(sudoku, 32, 300)
+solucionarsudoku.inicializar(pmut=0.01, pcruz=0.6, epidemia=500)
 solucionarsudoku.solucionar()
